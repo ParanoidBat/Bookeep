@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_project_name"
+        android:text="@string/name"
+        android:textSize="20dp"
+        android:padding="2dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_project_desc"
+        android:text="@string/desc"
+        android:padding="2dp"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_project_cn"
+        android:text="@string/client_name"
+        android:padding="2dp"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_project_cost"
+        android:text="@string/cost"
+        android:textSize="20dp"
+        android:padding="2dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_project_started"
+        android:padding="2dp"
+        android:text="@string/started_on"
+        android:textSize="20dp"
+        />
+
+</LinearLayout>
