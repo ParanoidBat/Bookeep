@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -85,10 +87,34 @@ public class ViewDebtsFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int i, @NonNull Debt debt) {
                 viewHolder.setData(debt.from, debt.to, debt.amount, debt.created);
+                final String to = debt.to;
+
+                viewHolder.btn_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Delete(to);
+                    }
+                });
+
+                viewHolder.btn_update.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Update();
+                    }
+                });
             }
         };
 
         rv.setAdapter(adapter);
+    }
+
+    public void Delete(String to){
+        databaseReference.child(to).setValue(null);
+        Toast.makeText(getContext(), "Record Removed", Toast.LENGTH_SHORT).show();
+    }
+
+    public void Update(){
+        Toast.makeText(getContext(), "To be implemented!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -105,6 +131,7 @@ public class ViewDebtsFragment extends Fragment {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView tv_from, tv_to, tv_amount, tv_created;
+        public Button btn_delete, btn_update;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -113,6 +140,9 @@ public class ViewDebtsFragment extends Fragment {
             tv_to = itemView.findViewById(R.id.tv_debt_to);
             tv_amount = itemView.findViewById(R.id.tv_debt_amount);
             tv_created = itemView.findViewById(R.id.tv_debt_on);
+
+            btn_delete = itemView.findViewById(R.id.btn_debt_delete);
+            btn_update = itemView.findViewById(R.id.btn_debt_update);
         }
 
         public void setData(String from, String to, String amount, String created){

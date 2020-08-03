@@ -2,18 +2,8 @@ package com.example.android.bookeep;
 
 //https://bookeep-f9d32.firebaseio.com/ @oazaz78
 
-import android.media.DrmInitData;
-import android.util.Log;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.Vector;
-
-import androidx.annotation.NonNull;
 
 public class FirebaseController {
     private FirebaseDatabase firebaseDatabase;
