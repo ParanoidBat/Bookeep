@@ -7,10 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +29,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 
 /**
@@ -73,8 +78,26 @@ public class ViewDevelopersFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int i, @NonNull Developer developer) {
+            protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull final Developer developer) {
                 viewHolder.SetData(developer.name, developer.joined, developer.technologies);
+
+                viewHolder.btn_update.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String techs = viewHolder.et_techs.getText().toString();
+
+                        if(!techs.isEmpty()){
+                            ArrayList<String> technologies = new ArrayList<String>();
+
+                            Collections.addAll(technologies, techs.split(","));
+
+                            developer.technologies = technologies;
+                        }
+
+                        FirebaseController firebaseController = new FirebaseController();
+                        firebaseController.UpdateDeveloper(developer);
+                    }
+                });
             }
         };
 
@@ -103,24 +126,36 @@ public class ViewDevelopersFragment extends Fragment {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView tv_name, tv_joined, tv_techs;
+        public TextView tv_name, tv_joined;
+        public EditText et_techs;
+        public Button btn_update;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_name = itemView.findViewById(R.id.tv_dev_name);
             tv_joined = itemView.findViewById(R.id.tv_dev_joined);
-            tv_techs = itemView.findViewById(R.id.tv_dev_tech);
+
+            et_techs = itemView.findViewById(R.id.et_dev_tech);
+
+            btn_update = itemView.findViewById(R.id.btn_dev_update);
         }
 
         public void SetData(String name, String joined, ArrayList<String> techs){
-            tv_name.append(" " + name);
-            tv_joined.append(" " + joined);
-            tv_techs.append(" " + techs.get(0));
+            tv_name.setText(name);
+            tv_joined.setText(joined);
 
-            for(int i = 1; i < techs.size(); i++){
-                tv_techs.append(", " + techs.get(i));
+            try {
+                et_techs.setText(techs.get(0));
+
+                for(int i = 1; i < techs.size(); i++){
+                    et_techs.append(", " + techs.get(i));
+                }
             }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
     }
 

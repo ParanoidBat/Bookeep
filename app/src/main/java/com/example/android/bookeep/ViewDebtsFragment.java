@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -134,10 +133,10 @@ public class ViewDebtsFragment extends Fragment {
         }
 
         public void setData(String from, String to, String amount, String created){
-            tv_from.append(" " + from);
-            tv_to.append(" " + to);
+            tv_from.setText(from);
+            tv_to.setText(to);
             et_debt_amount.setText(amount);
-            tv_created.append(" " + created);
+            tv_created.setText(created);
         }
     }
 

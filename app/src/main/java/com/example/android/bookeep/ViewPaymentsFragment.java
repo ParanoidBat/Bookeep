@@ -1,5 +1,6 @@
 package com.example.android.bookeep;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.textclassifier.TextClassification;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -73,8 +75,18 @@ public class ViewPaymentsFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int i, @NonNull Payment payment) {
+            protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull final Payment payment) {
                 viewHolder.SetData(payment.name, String.valueOf(payment.amount));
+
+                viewHolder.btn_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        payment.UpdatePayment(Integer.parseInt(viewHolder.et_amount.getText().toString()));
+
+                        FirebaseController firebaseController = new FirebaseController();
+                        firebaseController.UpdatePayment(payment);
+                    }
+                });
             }
         };
 
@@ -82,18 +94,20 @@ public class ViewPaymentsFragment extends Fragment {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView tv_to, tv_amount;
+        public TextView tv_to, et_amount;
+        public Button btn_add;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_to = itemView.findViewById(R.id.tv_pay_to);
-            tv_amount = itemView.findViewById(R.id.tv_pay_amount);
+            et_amount = itemView.findViewById(R.id.et_pay_amount);
+            btn_add = itemView.findViewById(R.id.btn_pay_add);
         }
 
         public void SetData(String to, String amount){
-            tv_amount.append(" " + amount);
-            tv_to.append(" " + to);
+            et_amount.setText(amount);
+            tv_to.setText(to);
         }
     }
 

@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,8 +75,20 @@ public class ViewProjectsFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int i, @NonNull Project project) {
+            protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull final Project project) {
                 viewHolder.SetData(project.name, project.clientName, project.description, project.cost, project.startedOn);
+
+                viewHolder.btn_update.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        project.description = viewHolder.et_desc.getText().toString();
+                        project.cost = viewHolder.et_cost.getText().toString();
+
+                        FirebaseController firebaseController = new FirebaseController();
+
+                        firebaseController.UpdateProject(project);
+                    }
+                });
             }
         };
 
@@ -103,24 +117,27 @@ public class ViewProjectsFragment extends Fragment {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_name, tv_desc, tv_client, tv_started, tv_cost;
+        TextView tv_name, tv_client, tv_started;
+        EditText et_desc, et_cost;
+        Button btn_update;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_name = itemView.findViewById(R.id.tv_project_name);
             tv_client = itemView.findViewById(R.id.tv_project_cn);
-            tv_cost = itemView.findViewById(R.id.tv_project_cost);
-            tv_desc = itemView.findViewById(R.id.tv_project_desc);
+            et_cost = itemView.findViewById(R.id.tv_project_cost);
+            et_desc = itemView.findViewById(R.id.tv_project_desc);
             tv_started = itemView.findViewById(R.id.tv_project_started);
+            btn_update = itemView.findViewById(R.id.btn_proj_update);
         }
 
         public void SetData(String name, String client, String desc, String cost, String started){
-            tv_name.append(" " + name);
-            tv_started.append(" " + started);
-            tv_desc.append(" " + desc);
-            tv_cost.append(" " + cost);
-            tv_client.append(" " + client);
+            tv_name.setText(name);
+            tv_started.setText(started);
+            et_desc.setText(desc);
+            et_cost.setText(cost);
+            tv_client.setText(client);
         }
     }
 

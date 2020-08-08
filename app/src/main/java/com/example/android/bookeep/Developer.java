@@ -39,6 +39,7 @@ public class Developer {
             technologies = new ArrayList<String>();
             technologies = (ArrayList) fields.clone();
         }
+        else technologies = new ArrayList<String>();
     }
 
     public void setName(String name) {
