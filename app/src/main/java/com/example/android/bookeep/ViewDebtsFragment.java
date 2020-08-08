@@ -7,11 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,22 +19,15 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
-
-import java.util.Vector;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ViewDebtsFragment extends Fragment {
-
+    FirebaseController firebaseController;
     RecyclerView rv;
     FirebaseRecyclerAdapter adapter;
 
@@ -85,36 +78,30 @@ public class ViewDebtsFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int i, @NonNull Debt debt) {
+            protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull final Debt debt) {
                 viewHolder.setData(debt.from, debt.to, debt.amount, debt.created);
-                final String to = debt.to;
 
                 viewHolder.btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Delete(to);
+                        firebaseController = new FirebaseController();
+                        firebaseController.DeleteDebt(debt.to);
                     }
                 });
 
                 viewHolder.btn_update.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Update();
+                        debt.amount = viewHolder.et_debt_amount.getText().toString();
+
+                        firebaseController = new FirebaseController();
+                        firebaseController.UpdateDebt(debt);
                     }
                 });
             }
         };
 
         rv.setAdapter(adapter);
-    }
-
-    public void Delete(String to){
-        databaseReference.child(to).setValue(null);
-        Toast.makeText(getContext(), "Record Removed", Toast.LENGTH_SHORT).show();
-    }
-
-    public void Update(){
-        Toast.makeText(getContext(), "To be implemented!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -130,15 +117,16 @@ public class ViewDebtsFragment extends Fragment {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView tv_from, tv_to, tv_amount, tv_created;
+        public TextView tv_from, tv_to, tv_created;
         public Button btn_delete, btn_update;
+        public EditText et_debt_amount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_from = itemView.findViewById(R.id.tv_debt_from);
             tv_to = itemView.findViewById(R.id.tv_debt_to);
-            tv_amount = itemView.findViewById(R.id.tv_debt_amount);
+            et_debt_amount = itemView.findViewById(R.id.et_debt_amount);
             tv_created = itemView.findViewById(R.id.tv_debt_on);
 
             btn_delete = itemView.findViewById(R.id.btn_debt_delete);
@@ -148,7 +136,7 @@ public class ViewDebtsFragment extends Fragment {
         public void setData(String from, String to, String amount, String created){
             tv_from.append(" " + from);
             tv_to.append(" " + to);
-            tv_amount.append(" " + amount);
+            et_debt_amount.setText(amount);
             tv_created.append(" " + created);
         }
     }

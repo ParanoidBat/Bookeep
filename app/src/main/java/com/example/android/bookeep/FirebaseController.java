@@ -2,6 +2,8 @@ package com.example.android.bookeep;
 
 //https://bookeep-f9d32.firebaseio.com/ @oazaz78
 
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -67,5 +69,26 @@ public class FirebaseController {
 
         databaseReference = null;
         firebaseDatabase = null;
+    }
+
+    public void UpdateDebt(Debt debt){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        databaseReference = firebaseDatabase.getReference("Debts").child(debt.to);
+
+        databaseReference.child("amount").setValue(debt.amount);
+
+        firebaseDatabase = null;
+        databaseReference = null;
+    }
+
+    public void DeleteDebt(String to){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Debts").child(to);
+
+        databaseReference.setValue(null);
+
+        firebaseDatabase = null;
+        databaseReference = null;
     }
 }

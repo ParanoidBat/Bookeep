@@ -1,8 +1,8 @@
 package com.example.android.bookeep;
 
-import android.widget.Toast;
+import java.io.Serializable;
 
-public class Debt {
+public class Debt implements Serializable {
     public String from = "";
     public String to = "";
     public String amount = "";
