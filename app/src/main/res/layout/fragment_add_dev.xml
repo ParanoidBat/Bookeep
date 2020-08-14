@@ -34,7 +34,7 @@
         android:hint="@string/technologies"
         android:layout_marginTop="20dp"
         android:paddingLeft="10dp"
-        android:inputType="textShortMessage"
+        android:inputType="textShortMessage|textCapWords"
         />
 
     <Button

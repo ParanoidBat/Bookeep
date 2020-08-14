@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 public class ProjectActivity extends AppCompatActivity {
-    private static final int NUM_PAGES = 2;
+    private static final int NUM_PAGES = 3;
     ViewPager viewPager;
     PagerAdapter pagerAdapter;
 
@@ -38,6 +38,8 @@ public class ProjectActivity extends AppCompatActivity {
                     return AddProjectFragment.newInstance();
                 case 1:
                     return ViewProjectsFragment.newInstance();
+                case 2:
+                    return AddMilestoneFragment.newInstance();
                 default:
                     return null;
             }
@@ -54,6 +56,8 @@ public class ProjectActivity extends AppCompatActivity {
                     return "Add Project";
                 case 1:
                     return "View Projects";
+                case 2:
+                    return "Add Milestone";
                 default:
                     return null;
             }

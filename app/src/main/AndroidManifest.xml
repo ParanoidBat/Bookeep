@@ -11,19 +11,28 @@
         android:theme="@style/AppTheme"
         >
 
-        <activity android:name=".ProjectActivity" />
-        <activity android:name=".DeveloperActivity" />
-        <activity android:name=".PaymentActivity" />
+        <activity android:name=".ProjectActivity"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <activity android:name=".DeveloperActivity"
+            android:parentActivityName=".MainMenuActivity" />
+
+        <activity android:name=".PaymentActivity"
+            android:parentActivityName=".MainMenuActivity" />
+
         <activity
             android:name=".DebtActivity"
             android:parentActivityName=".MainMenuActivity" />
+
         <activity android:name=".MainMenuActivity" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

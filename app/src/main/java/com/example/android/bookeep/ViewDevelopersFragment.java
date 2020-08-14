@@ -89,7 +89,7 @@ public class ViewDevelopersFragment extends Fragment {
                         if(!techs.isEmpty()){
                             ArrayList<String> technologies = new ArrayList<String>();
 
-                            Collections.addAll(technologies, techs.split(","));
+                            Collections.addAll(technologies, techs.split(",  "));
 
                             developer.technologies = technologies;
                         }

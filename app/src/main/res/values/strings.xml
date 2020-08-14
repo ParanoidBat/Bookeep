@@ -30,4 +30,9 @@
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+
+    <string name="new_milestone">Add New Milestone</string>
+    <string name="project_name">Project Name: </string>
+    <string name="value">Value: </string>
+    <string name="xrate">Exchange Rate: </string>
 </resources>

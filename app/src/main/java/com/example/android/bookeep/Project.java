@@ -1,5 +1,6 @@
 package com.example.android.bookeep;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class Project {
@@ -10,7 +11,7 @@ public class Project {
     public String startedOn;
     public String completedOn;
 
-    public Vector<Milestone> milestonesCompleted;
+//    public ArrayList<Milestone> milestonesCompleted;
 
     public Project(){
 //        name = "";
@@ -29,10 +30,10 @@ public class Project {
         this.startedOn = startedOn;
         this.completedOn = completedOn;
 
-        if(completed != null) {
-            milestonesCompleted = new Vector<Milestone>();
-            milestonesCompleted = (Vector) completed.clone();
-        }
+//        if(completed != null) {
+//            milestonesCompleted = new ArrayList<Milestone>();
+//            milestonesCompleted = (ArrayList) completed.clone();
+//        }
     }
 
     public void setName(String name) {
@@ -59,7 +60,7 @@ public class Project {
         this.completedOn = completedOn;
     }
 
-    public void setMilestonesCompleted(Vector<Milestone> milestonesCompleted) {
-        this.milestonesCompleted = milestonesCompleted;
-    }
+//    public void setMilestonesCompleted(ArrayList<Milestone> milestonesCompleted) {
+//        this.milestonesCompleted = milestonesCompleted;
+//    }
 }

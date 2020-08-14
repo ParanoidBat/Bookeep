@@ -1,11 +1,28 @@
 package com.example.android.bookeep;
 
-//https://bookeep-f9d32.firebaseio.com/ @oazaz78
+// https://bookeep-f9d32.firebaseio.com/ @oazaz78
 
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
 
 public class FirebaseController {
+    private boolean exists = false;
+
+    public void setExists(boolean exists) {
+        Log.d("bool3", "setting to " + exists);
+        this.exists = exists;
+        Log.d("bool4", "now is " + this.exists);
+    }
+
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
@@ -119,5 +136,19 @@ public class FirebaseController {
         databaseReference = firebaseDatabase.getReference("Developers").child(developer.name);
 
         databaseReference.child("technologies").setValue(developer.technologies);
+    }
+
+    public void addMilestone(Milestone milestone){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Milestones").child(milestone.project);
+
+        databaseReference.child("project").setValue(milestone.project);
+        databaseReference.child("amount").setValue(milestone.amount);
+        databaseReference.child("exchangeRate").setValue(milestone.exchangeRate);
+        databaseReference.child("receivedOn").setValue(milestone.receivedOn);
+        databaseReference.child("description").setValue(milestone.description);
+
+        firebaseDatabase = null;
+        databaseReference = null;
     }
 }
