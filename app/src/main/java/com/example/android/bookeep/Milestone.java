@@ -1,21 +1,15 @@
 package com.example.android.bookeep;
 
 public class Milestone {
-    String project;
     String amount;
     String exchangeRate;
     String receivedOn;
     String description;
 
     public Milestone(){
-//        amount = "";
-//        exchangeRate = "";
-//        receivedOn = "";
-//        description = "";
     }
 
-    public Milestone(String project, String amount, String exchangeRate, String receivedOn, String description){
-        this.project = project;
+    public Milestone( String amount, String exchangeRate, String receivedOn, String description){
         this.amount = amount;
         this.exchangeRate = exchangeRate;
         this.receivedOn = receivedOn;
@@ -38,7 +32,19 @@ public class Milestone {
         this.description = description;
     }
 
-    public void setProject(String project) {
-        this.project = project;
+    public String getAmount() {
+        return amount;
+    }
+
+    public String getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public String getReceivedOn() {
+        return receivedOn;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

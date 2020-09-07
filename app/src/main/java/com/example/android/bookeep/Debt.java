@@ -1,22 +1,18 @@
 package com.example.android.bookeep;
 
-import java.io.Serializable;
-
-public class Debt implements Serializable {
+public class Debt {
     public String from = "";
     public String to = "";
     public String amount = "";
     public String created = "";
-    public String cleared = "";
 
     public Debt(){}
 
-    public Debt(String from, String to, String amount, String created, String cleared){
+    public Debt(String from, String to, String amount, String created){
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.created = created;
-        this.cleared = cleared;
     }
 
     public int updateDebt(int amount){
@@ -37,13 +33,5 @@ public class Debt implements Serializable {
 
     public void setAmount(String amount) {
         this.amount = amount;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    public void setCleared(String cleared) {
-        this.cleared = cleared;
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,10 +65,10 @@ public class AddMilestoneFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-                            Milestone milestone = new Milestone(name, value, xrate, LocalDate.now().toString(), desc);
+                            Milestone milestone = new Milestone(value, xrate, LocalDate.now().toString(), desc);
 
                             FirebaseController firebaseController = new FirebaseController();
-                            firebaseController.addMilestone(milestone);
+                            firebaseController.addMilestone(milestone, name);
 
                             clearFields();
 

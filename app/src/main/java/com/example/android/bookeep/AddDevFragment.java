@@ -52,7 +52,7 @@ public class AddDevFragment extends Fragment {
                 else{
                     clearFields();
 
-                    Developer developer = new Developer(name, LocalDate.now().toString(), null, null, technologies);
+                    Developer developer = new Developer(name, LocalDate.now().toString(), technologies);
 
                     FirebaseController firebaseController = new FirebaseController();
                     firebaseController.addNewDeveloper(developer);

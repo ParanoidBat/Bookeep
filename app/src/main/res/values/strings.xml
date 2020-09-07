@@ -35,4 +35,6 @@
     <string name="project_name">Project Name: </string>
     <string name="value">Value: </string>
     <string name="xrate">Exchange Rate: </string>
+    <string name="search_milestone">Search Milestone</string>
+    <string name="search">Search</string>
 </resources>

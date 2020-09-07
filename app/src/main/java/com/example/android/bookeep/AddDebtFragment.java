@@ -52,7 +52,7 @@ public class AddDebtFragment extends Fragment {
                 else{
                     clearFields();
 
-                    debt = new Debt(from, to, amount, LocalDate.now().toString(), "");
+                    debt = new Debt(from, to, amount, LocalDate.now().toString());
 
                     firebaseController = new FirebaseController();
                     firebaseController.addNewDebt(debt);

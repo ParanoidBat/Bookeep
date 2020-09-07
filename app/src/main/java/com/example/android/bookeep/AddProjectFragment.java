@@ -52,7 +52,7 @@ public class AddProjectFragment extends Fragment {
                 else{
                     clearFields();
 
-                    Project project = new Project(name, desc, cost, client_name, LocalDate.now().toString(), "", null);
+                    Project project = new Project(name, desc, cost, client_name, LocalDate.now().toString(), "");
 
                     FirebaseController firebaseController = new FirebaseController();
                     firebaseController.addNewProject(project);

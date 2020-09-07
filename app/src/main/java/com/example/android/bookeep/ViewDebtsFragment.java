@@ -30,7 +30,7 @@ public class ViewDebtsFragment extends Fragment {
     RecyclerView rv;
     FirebaseRecyclerAdapter adapter;
 
-    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference =firebaseDatabase.getReference("Debts");
 
     public ViewDebtsFragment() {
@@ -64,7 +64,7 @@ public class ViewDebtsFragment extends Fragment {
             @Override
             public Debt parseSnapshot(@NonNull DataSnapshot snapshot) {
                 return new Debt(snapshot.child("from").getValue().toString(), snapshot.child("to").getValue().toString(),
-                        snapshot.child("amount").getValue().toString(), snapshot.child("created").getValue().toString(), "");
+                        snapshot.child("amount").getValue().toString(), snapshot.child("created").getValue().toString());
             }
         }).build();
 
@@ -145,6 +145,7 @@ public class ViewDebtsFragment extends Fragment {
         rv.setAdapter(null);
         rv = null;
         databaseReference = null;
+        firebaseDatabase = null;
 
         super.onDestroyView();
     }

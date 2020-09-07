@@ -1,8 +1,5 @@
 package com.example.android.bookeep;
 
-import java.util.ArrayList;
-import java.util.Vector;
-
 public class Project {
     public String name;
     public String description;
@@ -11,29 +8,16 @@ public class Project {
     public String startedOn;
     public String completedOn;
 
-//    public ArrayList<Milestone> milestonesCompleted;
-
     public Project(){
-//        name = "";
-//        description= "";
-//        cost = "";
-//        clientName = "";
-//        startedOn = "";
-//        completedOn = "";
     }
 
-    public Project(String name, String description, String cost, String clientName, String startedOn, String completedOn, Vector<Milestone> completed){
+    public Project(String name, String description, String cost, String clientName, String startedOn, String completedOn){
         this.name = name;
         this.description = description;
         this.cost = cost;
         this.clientName = clientName;
         this.startedOn = startedOn;
         this.completedOn = completedOn;
-
-//        if(completed != null) {
-//            milestonesCompleted = new ArrayList<Milestone>();
-//            milestonesCompleted = (ArrayList) completed.clone();
-//        }
     }
 
     public void setName(String name) {
@@ -59,8 +43,4 @@ public class Project {
     public void setCompletedOn(String completedOn) {
         this.completedOn = completedOn;
     }
-
-//    public void setMilestonesCompleted(ArrayList<Milestone> milestonesCompleted) {
-//        this.milestonesCompleted = milestonesCompleted;
-//    }
 }

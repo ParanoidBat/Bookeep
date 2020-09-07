@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.provider.DocumentsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +65,7 @@ public class AddPaymentFragment extends Fragment {
     private void getData(){
         amount = et_amount.getText().toString();
         to = et_to.getText().toString();
+
     }
 
     private void clearFields(){
