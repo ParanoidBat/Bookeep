@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/et_debt_amount"
-        android:inputType="number"
+        android:inputType="numberSigned"
         android:padding="2dp"
         android:textSize="20dp"
         />

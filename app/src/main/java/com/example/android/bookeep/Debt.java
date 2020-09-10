@@ -34,4 +34,20 @@ public class Debt {
     public void setAmount(String amount) {
         this.amount = amount;
     }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public String getCreated() {
+        return created;
+    }
 }

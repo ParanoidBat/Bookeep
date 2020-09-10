@@ -2,11 +2,22 @@ package com.example.android.bookeep;
 
 // https://bookeep-f9d32.firebaseio.com/ @oazaz78
 
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import androidx.annotation.NonNull;
 
 
 public class FirebaseController {
+    private String key = "lol";
+    public void setKey(String key){
+        this.key = key;
+    }
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -15,12 +26,7 @@ public class FirebaseController {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         databaseReference = firebaseDatabase.getReference("Debts");
-        databaseReference = databaseReference.child(debt.to);
-
-        databaseReference.child("to").setValue(debt.to);
-        databaseReference.child("from").setValue(debt.from);
-        databaseReference.child("amount").setValue(debt.amount);
-        databaseReference.child("created").setValue(debt.created);
+        databaseReference.push().setValue(debt);
 
         databaseReference = null;
         firebaseDatabase = null;
@@ -70,31 +76,78 @@ public class FirebaseController {
         firebaseDatabase = null;
     }
 
-    public void UpdateDebt(Debt debt){
+    public void UpdateDebt(final Debt debt){
 
         if(debt.amount.equals("0")){
-            DeleteDebt(debt.to);
+            DeleteDebt(debt);
             return;
         }
 
         firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Debts");
 
-        databaseReference = firebaseDatabase.getReference("Debts").child(debt.to);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child : snapshot.getChildren()){ // the push nodes
+                    Debt debt1 = child.getValue(Debt.class);
 
-        databaseReference.child("amount").setValue(debt.amount);
+                    if(debt.from.equals(debt1.from) && debt.to.equals(debt1.to)){
+                        setKey(child.getKey());
+                        break;
+                    }
+                }
+
+                UpdateDebtUtility(debt.amount);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         firebaseDatabase = null;
         databaseReference = null;
     }
 
-    public void DeleteDebt(String to){
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Debts").child(to);
+    private void UpdateDebtUtility(String amount){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Debts");
 
-        databaseReference.setValue(null);
+        databaseReference.child(key).child("amount").setValue(amount);
+    }
+
+    public void DeleteDebt(final Debt debt){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Debts");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child : snapshot.getChildren()){ // the push nodes
+                    Debt debt1 = child.getValue(Debt.class);
+
+                    if(debt.from.equals(debt1.from) && debt.to.equals(debt1.to)){
+                        setKey(child.getKey());
+                        break;
+                    }
+                }
+                deleteDebtUtility();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         firebaseDatabase = null;
         databaseReference = null;
+    }
+
+    private void deleteDebtUtility(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Debts");
+        databaseReference.child(key).setValue(null);
     }
 
     public void UpdatePayment(Payment payment){

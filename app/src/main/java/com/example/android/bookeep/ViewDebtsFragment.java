@@ -59,14 +59,7 @@ public class ViewDebtsFragment extends Fragment {
     private void populate(){
         Query query = databaseReference;
 
-        FirebaseRecyclerOptions<Debt> options = new FirebaseRecyclerOptions.Builder<Debt>().setQuery(query, new SnapshotParser<Debt>() {
-            @NonNull
-            @Override
-            public Debt parseSnapshot(@NonNull DataSnapshot snapshot) {
-                return new Debt(snapshot.child("from").getValue().toString(), snapshot.child("to").getValue().toString(),
-                        snapshot.child("amount").getValue().toString(), snapshot.child("created").getValue().toString());
-            }
-        }).build();
+        FirebaseRecyclerOptions<Debt> options = new FirebaseRecyclerOptions.Builder<Debt>().setQuery(query, Debt.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Debt, ViewHolder>(options){
             @NonNull
@@ -84,7 +77,7 @@ public class ViewDebtsFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         firebaseController = new FirebaseController();
-                        firebaseController.DeleteDebt(debt.to);
+                        firebaseController.DeleteDebt(debt);
                     }
                 });
 
