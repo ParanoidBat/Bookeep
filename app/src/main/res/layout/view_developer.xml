@@ -83,8 +83,8 @@
             android:id="@+id/et_dev_tech"
             android:padding="2dp"
             android:textSize="20dp"
-            android:inputType="textMultiLine"
-            android:minLines="2"
+            android:inputType="textMultiLine|textCapWords"
+            android:minLines="1"
             />
 
     </LinearLayout>

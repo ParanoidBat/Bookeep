@@ -87,7 +87,7 @@ public class ViewPaymentsFragment extends Fragment {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView tv_to, et_amount, et_project;
+        public TextView tv_to, et_amount;
         public Button btn_add;
 
         public ViewHolder(@NonNull View itemView) {

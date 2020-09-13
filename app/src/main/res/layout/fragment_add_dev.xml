@@ -23,7 +23,7 @@
         android:paddingLeft="10dp"
         android:hint="@string/name"
         android:layout_marginTop="20dp"
-        android:inputType="text"
+        android:inputType="textCapWords"
         />
 
     <EditText

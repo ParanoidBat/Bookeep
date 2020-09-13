@@ -20,12 +20,15 @@
     <string name="name">Name: </string>
     <string name="technologies">Technologies (separate by \" , \")</string>
     <string name="joined_on">Joined On:</string>
+    <string name="developers">Developers: </string>
+    <string name="add_devs">Developers (separate by \",\")</string>
 
     <string name="new_project">Add New Project</string>
     <string name="desc">Short Description: </string>
     <string name="cost">Cost: </string>
     <string name="client_name">Client\'s Name: </string>
-    <string name="started_on">Started On:</string>
+    <string name="started_on">Started On: </string>
+    <string name="completed_on">Completed On: </string>
 
     <string name="update">Update</string>
     <string name="delete">Delete</string>
@@ -37,4 +40,13 @@
     <string name="xrate">Exchange Rate: </string>
     <string name="search_milestone">Search Milestone</string>
     <string name="search">Search</string>
+
+    <string-array name="currencies">
+        <item>USD</item>
+        <item>PKR</item>
+        <item>SAR</item>
+        <item>AED</item>
+        <item>EUR</item>
+        <item>GBP</item>
+    </string-array>
 </resources>

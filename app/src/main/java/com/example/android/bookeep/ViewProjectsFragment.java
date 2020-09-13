@@ -13,12 +13,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -70,7 +75,8 @@ public class ViewProjectsFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull final Project project) {
-                viewHolder.SetData(project.name, project.clientName, project.description, project.cost, project.startedOn);
+                viewHolder.SetData(project.name, project.clientName, project.description, project.cost, project.startedOn,
+                        (project.completedOn.isEmpty()) ? "" : project.completedOn, project.developers );
 
                 viewHolder.btn_update.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -78,9 +84,34 @@ public class ViewProjectsFragment extends Fragment {
                         project.description = viewHolder.et_desc.getText().toString();
                         project.cost = viewHolder.et_cost.getText().toString();
 
+                        String dev = viewHolder.et_devs.getText().toString();
+                        if(!dev.isEmpty()){
+                            ArrayList<String> devs = new ArrayList<>();
+
+                            Collections.addAll(devs, dev.split(", "));
+
+                            project.setDevelopers(devs);
+                        }
+                        else{
+                            project.setDevelopers(null);
+                        }
+
                         FirebaseController firebaseController = new FirebaseController();
 
                         firebaseController.UpdateProject(project);
+                    }
+                });
+
+                viewHolder.btn_completed.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        project.setCompletedOn(LocalDate.now().toString());
+
+                        FirebaseController firebaseController = new FirebaseController();
+                        firebaseController.projectComplete(project);
+
+                        Toast.makeText(getContext(), "Project marked complete", Toast.LENGTH_SHORT).show();
+                        return true;
                     }
                 });
             }
@@ -111,27 +142,53 @@ public class ViewProjectsFragment extends Fragment {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_name, tv_client, tv_started;
-        EditText et_desc, et_cost;
-        Button btn_update;
+        TextView tv_name, tv_client, tv_started, tv_completed, tag_complete;
+        EditText et_desc, et_cost, et_devs;
+        Button btn_update, btn_completed;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_name = itemView.findViewById(R.id.tv_project_name);
             tv_client = itemView.findViewById(R.id.tv_project_cn);
+            tv_started = itemView.findViewById(R.id.tv_project_started);
+            tv_completed = itemView.findViewById(R.id.tv_project_completed);
+            tag_complete = itemView.findViewById(R.id.tag_proj_compelete);
+
             et_cost = itemView.findViewById(R.id.tv_project_cost);
             et_desc = itemView.findViewById(R.id.tv_project_desc);
-            tv_started = itemView.findViewById(R.id.tv_project_started);
+            et_devs = itemView.findViewById(R.id.et_project_devs);
+
             btn_update = itemView.findViewById(R.id.btn_proj_update);
+            btn_completed = itemView.findViewById(R.id.btn_proj_completed);
         }
 
-        public void SetData(String name, String client, String desc, String cost, String started){
+        public void SetData(String name, String client, String desc, String cost, String started, String completed, ArrayList<String> devs){
             tv_name.setText(name);
             tv_started.setText(started);
+            tv_client.setText(client);
+
             et_desc.setText(desc);
             et_cost.setText(cost);
-            tv_client.setText(client);
+
+            if(completed.isEmpty()){
+                tag_complete.setVisibility(View.INVISIBLE);
+                tv_completed.setVisibility(View.INVISIBLE);
+            }
+            else{
+                tv_completed.setText(completed);
+            }
+
+            try{
+                et_devs.setText(devs.get(0));
+
+                for(int i = 1; i < devs.size(); i++){
+                    et_devs.append(", " + devs.get(i));
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

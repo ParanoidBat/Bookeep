@@ -2,8 +2,6 @@ package com.example.android.bookeep;
 
 // https://bookeep-f9d32.firebaseio.com/ @oazaz78
 
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,11 +50,13 @@ public class FirebaseController {
         databaseReference = firebaseDatabase.getReference("Projects");
         databaseReference = databaseReference.child(project.name);
 
-        databaseReference.child("name").setValue(project.name);
-        databaseReference.child("description").setValue(project.description);
-        databaseReference.child("cost").setValue(project.cost);
-        databaseReference.child("clientName").setValue(project.clientName);
-        databaseReference.child("startedOn").setValue(project.startedOn);
+//        databaseReference.child("name").setValue(project.name);
+//        databaseReference.child("description").setValue(project.description);
+//        databaseReference.child("cost").setValue(project.cost);
+//        databaseReference.child("clientName").setValue(project.clientName);
+//        databaseReference.child("startedOn").setValue(project.startedOn);
+
+        databaseReference.setValue(project);
 
         databaseReference = null;
         firebaseDatabase = null;
@@ -68,8 +68,6 @@ public class FirebaseController {
         databaseReference = firebaseDatabase.getReference("Payments");
         databaseReference = databaseReference.child(payment.name);
 
-//        databaseReference.child("name").setValue(payment.name);
-//        databaseReference.child("amount").setValue(payment.amount);
         databaseReference.setValue(payment);
 
         databaseReference = null;
@@ -163,9 +161,15 @@ public class FirebaseController {
 
         databaseReference.child("cost").setValue(project.cost);
         databaseReference.child("description").setValue(project.description);
+        databaseReference.child("developers").setValue(project.developers);
 
         firebaseDatabase = null;
         databaseReference = null;
+    }
+
+    public void projectComplete(Project project){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Projects").child(project.name);
+        databaseReference.child("completedOn").setValue(project.completedOn);
     }
 
     public void UpdateDeveloper(Developer developer){

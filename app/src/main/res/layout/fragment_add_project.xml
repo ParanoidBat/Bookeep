@@ -34,8 +34,8 @@
         android:paddingLeft="10dp"
         android:textSize="20dp"
         android:layout_marginTop="20dp"
-        android:inputType="textMultiLine"
-        android:minLines="2"
+        android:inputType="textMultiLine|textCapSentences"
+        android:minLines="1"
         />
 
     <EditText
@@ -57,7 +57,25 @@
         android:paddingLeft="10dp"
         android:textSize="20dp"
         android:layout_marginTop="20dp"
-        android:inputType="text"
+        android:inputType="textCapWords"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/et_developers"
+        android:hint="@string/add_devs"
+        android:paddingLeft="10dp"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="textMultiLine|textCapWords"
+        android:minLines="1"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spin_add_project"
         />
 
     <Button
