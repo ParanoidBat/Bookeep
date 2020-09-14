@@ -12,7 +12,8 @@
         >
 
         <activity android:name=".ProjectActivity"
-            android:parentActivityName=".MainMenuActivity" />
+            android:parentActivityName=".MainMenuActivity"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity android:name=".DeveloperActivity"
             android:parentActivityName=".MainMenuActivity" />

@@ -76,7 +76,7 @@ public class ViewProjectsFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i, @NonNull final Project project) {
                 viewHolder.SetData(project.name, project.clientName, project.description, project.cost, project.startedOn,
-                        (project.completedOn.isEmpty()) ? "" : project.completedOn, project.developers );
+                        (project.completedOn.isEmpty()) ? "" : project.completedOn, project.developers, project.currency );
 
                 viewHolder.btn_update.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -142,7 +142,7 @@ public class ViewProjectsFragment extends Fragment {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_name, tv_client, tv_started, tv_completed, tag_complete;
+        TextView tv_name, tv_client, tv_started, tv_completed, tag_complete, tv_currency;
         EditText et_desc, et_cost, et_devs;
         Button btn_update, btn_completed;
 
@@ -153,6 +153,7 @@ public class ViewProjectsFragment extends Fragment {
             tv_client = itemView.findViewById(R.id.tv_project_cn);
             tv_started = itemView.findViewById(R.id.tv_project_started);
             tv_completed = itemView.findViewById(R.id.tv_project_completed);
+            tv_currency = itemView.findViewById(R.id.tv_project_currency);
             tag_complete = itemView.findViewById(R.id.tag_proj_compelete);
 
             et_cost = itemView.findViewById(R.id.tv_project_cost);
@@ -163,10 +164,11 @@ public class ViewProjectsFragment extends Fragment {
             btn_completed = itemView.findViewById(R.id.btn_proj_completed);
         }
 
-        public void SetData(String name, String client, String desc, String cost, String started, String completed, ArrayList<String> devs){
+        public void SetData(String name, String client, String desc, String cost, String started, String completed, ArrayList<String> devs, String currency){
             tv_name.setText(name);
             tv_started.setText(started);
             tv_client.setText(client);
+            tv_currency.setText(currency);
 
             et_desc.setText(desc);
             et_cost.setText(cost);

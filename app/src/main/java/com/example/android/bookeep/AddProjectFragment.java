@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,10 +22,10 @@ import java.util.Collections;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddProjectFragment extends Fragment {
+public class AddProjectFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     EditText et_name, et_client_name, et_cost, et_desc, et_devs;
     Button btn_add;
-    String name, client_name, cost, desc;
+    String name, client_name, cost, desc, currency;
     ArrayList<String> devs;
     Spinner spinner;
 
@@ -47,6 +48,7 @@ public class AddProjectFragment extends Fragment {
         et_devs = rootView.findViewById(R.id.et_developers);
 
         spinner = rootView.findViewById(R.id.spin_add_project);
+        spinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.currencies, android.R.layout.simple_spinner_item );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -64,7 +66,7 @@ public class AddProjectFragment extends Fragment {
                 else{
                     clearFields();
 
-                    Project project = new Project(name, desc, cost, client_name, LocalDate.now().toString(), "", devs, "");
+                    Project project = new Project(name, desc, cost, client_name, LocalDate.now().toString(), "", devs, currency);
 
                     FirebaseController firebaseController = new FirebaseController();
                     firebaseController.addNewProject(project);
@@ -104,5 +106,15 @@ public class AddProjectFragment extends Fragment {
         et_desc.setText("");
         et_name.setText("");
         et_devs.setText("");
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        currency = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        Toast.makeText(getContext(), "Select a currency!", Toast.LENGTH_LONG).show();
     }
 }

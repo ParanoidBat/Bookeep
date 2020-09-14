@@ -34,7 +34,7 @@
         android:paddingLeft="10dp"
         android:textSize="20dp"
         android:layout_marginTop="20dp"
-        android:inputType="textMultiLine|textCapSentences"
+        android:inputType="textShortMessage|textCapSentences"
         android:minLines="1"
         />
 
@@ -73,9 +73,10 @@
         />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:id="@+id/spin_add_project"
+        android:layout_marginTop="20dp"
         />
 
     <Button
