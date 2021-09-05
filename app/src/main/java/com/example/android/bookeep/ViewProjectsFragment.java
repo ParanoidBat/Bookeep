@@ -78,6 +78,7 @@ public class ViewProjectsFragment extends Fragment {
                 viewHolder.SetData(project.name, project.clientName, project.description, project.cost, project.startedOn,
                         (project.completedOn.isEmpty()) ? "" : project.completedOn, project.developers, project.currency );
 
+
                 viewHolder.btn_update.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

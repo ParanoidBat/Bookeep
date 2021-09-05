@@ -1,6 +1,9 @@
 package com.example.android.bookeep;
 
-// https://bookeep-f9d32.firebaseio.com/ @oazaz78
+/*
+ https://bookeep-f9d32.firebaseio.com/
+ @oazaz78
+ */
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,12 +52,6 @@ public class FirebaseController {
 
         databaseReference = firebaseDatabase.getReference("Projects");
         databaseReference = databaseReference.child(project.name);
-
-//        databaseReference.child("name").setValue(project.name);
-//        databaseReference.child("description").setValue(project.description);
-//        databaseReference.child("cost").setValue(project.cost);
-//        databaseReference.child("clientName").setValue(project.clientName);
-//        databaseReference.child("startedOn").setValue(project.startedOn);
 
         databaseReference.setValue(project);
 
@@ -146,6 +143,13 @@ public class FirebaseController {
     private void deleteDebtUtility(){
         databaseReference = FirebaseDatabase.getInstance().getReference("Debts");
         databaseReference.child(key).setValue(null);
+    }
+
+    public void deleteDeveloper(String name){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("Developers");
+
+        databaseReference.child(name).setValue(null);
     }
 
     public void UpdatePayment(Payment payment){

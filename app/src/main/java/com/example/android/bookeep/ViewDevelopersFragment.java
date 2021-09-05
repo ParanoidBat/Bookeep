@@ -89,6 +89,14 @@ public class ViewDevelopersFragment extends Fragment {
                         firebaseController.UpdateDeveloper(developer);
                     }
                 });
+
+                viewHolder.btn_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseController firebaseController = new FirebaseController();
+                        firebaseController.deleteDeveloper(developer.name);
+                    }
+                });
             }
         };
 
@@ -119,7 +127,7 @@ public class ViewDevelopersFragment extends Fragment {
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView tv_name, tv_joined;
         public EditText et_techs;
-        public Button btn_update;
+        public Button btn_update, btn_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -130,6 +138,7 @@ public class ViewDevelopersFragment extends Fragment {
             et_techs = itemView.findViewById(R.id.et_dev_tech);
 
             btn_update = itemView.findViewById(R.id.btn_dev_update);
+            btn_delete = itemView.findViewById(R.id.btn_dev_delete);
         }
 
         public void SetData(String name, String joined, ArrayList<String> techs){
